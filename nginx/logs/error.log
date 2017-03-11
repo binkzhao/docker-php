@@ -1,0 +1,12 @@
+2017/03/11 15:59:36 [error] 5#5: *1 "/etc/nginx/html/index.php" is not found (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET / HTTP/1.1", host: "127.0.0.1"
+2017/03/11 15:59:36 [error] 5#5: *1 open() "/etc/nginx/html/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "127.0.0.1"
+2017/03/11 15:59:43 [error] 5#5: *1 open() "/etc/nginx/html/index.html" failed (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET /index.html HTTP/1.1", host: "127.0.0.1"
+2017/03/11 16:07:05 [error] 5#5: *1 open() "/etc/nginx/html/index.html" failed (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET /index.html HTTP/1.1", host: "127.0.0.1"
+2017/03/11 16:07:07 [error] 5#5: *1 open() "/etc/nginx/html/index.html" failed (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET /index.html HTTP/1.1", host: "127.0.0.1"
+2017/03/11 16:07:08 [error] 5#5: *1 open() "/etc/nginx/html/index.html" failed (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET /index.html HTTP/1.1", host: "127.0.0.1"
+2017/03/11 16:07:10 [error] 5#5: *1 open() "/etc/nginx/html/index.html" failed (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET /index.html HTTP/1.1", host: "127.0.0.1"
+2017/03/11 16:07:52 [error] 5#5: *1 open() "/etc/nginx/html/index.html" failed (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET /index.html HTTP/1.1", host: "127.0.0.1"
+2017/03/11 16:07:53 [error] 5#5: *1 open() "/etc/nginx/html/index.html" failed (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET /index.html HTTP/1.1", host: "127.0.0.1"
+2017/03/11 16:10:08 [emerg] 1#1: invalid number of arguments in "fastcgi_param" directive in /etc/nginx/conf.d/default.conf:34
+2017/03/11 16:13:26 [emerg] 1#1: unknown directive "document_root" in /etc/nginx/conf.d/default.conf:8
+2017/03/11 16:14:24 [error] 5#5: *1 FastCGI sent in stderr: "Primary script unknown" while reading response header from upstream, client: 172.17.0.1, server: localhost, request: "GET /index.php HTTP/1.1", upstream: "fastcgi://172.17.0.3:9000", host: "127.0.0.1"

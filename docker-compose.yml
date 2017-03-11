@@ -1,0 +1,26 @@
+nginx:
+  image: nginx:latest
+  ports:
+    - "80:80"
+  links:
+    - "php-fpm"
+  volumes:
+    - ./src:/var/www/html
+    - ./nginx/logs:/var/log/nginx
+    - ./nginx/sites-enabled:/etc/nginx/conf.d
+
+php-fpm:
+  image: php:7.0-fpm
+  ports:
+    - "9000:9000"
+  links:
+    - "mysql"
+  volumes:
+    - ./src:/var/www/html
+
+mysql:
+  image: mysql:5.6
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: root

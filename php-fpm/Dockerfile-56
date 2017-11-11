@@ -304,6 +304,72 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
     docker-php-ext-enable imagick \
 ;fi
 
+###补充的PHP扩展###
+USER root
+ARG INSTALL_GETTEXT=false
+ENV INSTALL_GETTEXT ${INSTALL_GETTEXT}
+RUN if [ ${INSTALL_GETTEXT} = true ]; then \
+    apt-get update -y && \
+    docker-php-ext-install gettext && \
+    docker-php-ext-enable gettext \
+;fi
+
+USER root
+ARG INSTALL_CALENDAR=false
+ENV INSTALL_CALENDAR ${INSTALL_CALENDAR}
+RUN if [ ${INSTALL_CALENDAR} = true ]; then \
+    apt-get update -y && \
+    docker-php-ext-install calendar && \
+    docker-php-ext-enable calendar \
+;fi
+
+USER root
+ARG INSTALL_PCNTL=false
+ENV INSTALL_PCNTL ${INSTALL_PCNTL}
+RUN if [ ${INSTALL_PCNTL} = true ]; then \
+    apt-get update -y && \
+    docker-php-ext-install pcntl && \
+    docker-php-ext-enable pcntl \
+;fi
+
+USER root
+ARG INSTALL_SHMOP=false
+ENV INSTALL_SHMOP ${INSTALL_SHMOP}
+RUN if [ ${INSTALL_SHMOP} = true ]; then \
+    apt-get update -y && \
+    docker-php-ext-install shmop && \
+    docker-php-ext-enable shmop \
+;fi
+
+USER root
+ARG INSTALL_SOCKETS=false
+ENV INSTALL_SOCKETS ${INSTALL_SOCKETS}
+RUN if [ ${INSTALL_SOCKETS} = true ]; then \
+    apt-get update -y && \
+    docker-php-ext-install sockets && \
+    docker-php-ext-enable sockets \
+;fi
+
+USER root
+ARG INSTALL_SYSVMSG=false
+ENV INSTALL_SYSVMSG ${INSTALL_SYSVMSG}
+RUN if [ ${INSTALL_SYSVMSG} = true ]; then \
+    apt-get update -y && \
+    docker-php-ext-install sysvmsg && \
+    docker-php-ext-enable sysvmsg \
+;fi
+
+USER root
+ARG INSTALL_SYSVSHM=false
+ENV INSTALL_SYSVSHM ${INSTALL_SYSVSHM}
+RUN if [ ${INSTALL_SYSVSHM} = true ]; then \
+    apt-get update -y && \
+    docker-php-ext-install sysvshm && \
+    docker-php-ext-enable sysvshm \
+;fi
+
+###补充的PHP扩展###
+
 #
 #--------------------------------------------------------------------------
 # Final Touch

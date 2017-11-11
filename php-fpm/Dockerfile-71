@@ -1,42 +1,6 @@
-#
-#--------------------------------------------------------------------------
-# Image Setup
-#--------------------------------------------------------------------------
-#
-# To edit the 'php-fpm' base Image, visit its repository on Github
-#    https://github.com/Laradock/php-fpm
-#
-# To change its version, see the available Tags on the Docker Hub:
-#    https://hub.docker.com/r/laradock/php-fpm/tags/
-#
-# Note: Base Image name format {image-tag}-{php-version}
-#
-
 FROM laradock/php-fpm:1.4-71
 
 MAINTAINER Mahmoud Zalt <mahmoud@zalt.me>
-
-#
-#--------------------------------------------------------------------------
-# Mandatory Software's Installation
-#--------------------------------------------------------------------------
-#
-# Mandatory Software's such as ("mcrypt", "pdo_mysql", "libssl-dev", ....)
-# are installed on the base image 'laradock/php-fpm' image. If you want
-# to add more Software's or remove existing one, you need to edit the
-# base image (https://github.com/Laradock/php-fpm).
-#
-
-#
-#--------------------------------------------------------------------------
-# Optional Software's Installation
-#--------------------------------------------------------------------------
-#
-# Optional Software's will only be installed if you set them to `true`
-# in the `docker-compose.yml` before the build.
-# Example:
-#   - INSTALL_ZIP_ARCHIVE=true
-#
 
 #####################################
 # SOAP:
@@ -286,30 +250,6 @@ RUN if [ ${INSTALL_LDAP} = true ]; then \
     docker-php-ext-install ldap \
 ;fi
 
-#####################################
-# SQL SERVER:
-#####################################
-
-ARG INSTALL_MSSQL=false
-ENV INSTALL_MSSQL ${INSTALL_MSSQL}
-RUN if [ ${INSTALL_MSSQL} = true ]; then \
-    #####################################
-    # Ref from https://github.com/Microsoft/msphpsql/wiki/Dockerfile-for-adding-pdo_sqlsrv-and-sqlsrv-to-official-php-image
-    #####################################
-    # Add Microsoft repo for Microsoft ODBC Driver 13 for Linux
-    apt-get update -yqq && apt-get install -y apt-transport-https \
-        && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-        && curl https://packages.microsoft.com/config/debian/8/prod.list > /etc/apt/sources.list.d/mssql-release.list \
-        && apt-get update -yqq \
-
-    # Install Dependencies
-        && ACCEPT_EULA=Y apt-get install -y unixodbc unixodbc-dev libgss3 odbcinst msodbcsql locales \
-        && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen \
-
-    # Install pdo_sqlsrv and sqlsrv from PECL. Replace pdo_sqlsrv-4.1.8preview with preferred version.
-        && pecl install pdo_sqlsrv-4.1.8preview sqlsrv-4.1.8preview \
-        && docker-php-ext-enable pdo_sqlsrv sqlsrv \
-;fi
 
 #####################################
 # Image optimizers:
@@ -335,7 +275,9 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
     docker-php-ext-enable imagick \
 ;fi
 
-###补充的PHP扩展###
+####################################
+# GetText:
+#####################################
 USER root
 ARG INSTALL_GETTEXT=false
 ENV INSTALL_GETTEXT ${INSTALL_GETTEXT}
@@ -345,6 +287,9 @@ RUN if [ ${INSTALL_GETTEXT} = true ]; then \
     docker-php-ext-enable gettext \
 ;fi
 
+####################################
+# Calendar:
+#####################################
 USER root
 ARG INSTALL_CALENDAR=false
 ENV INSTALL_CALENDAR ${INSTALL_CALENDAR}
@@ -354,15 +299,9 @@ RUN if [ ${INSTALL_CALENDAR} = true ]; then \
     docker-php-ext-enable calendar \
 ;fi
 
-USER root
-ARG INSTALL_SSH2=false
-ENV INSTALL_SSH2 ${INSTALL_SSH2}
-RUN if [ ${INSTALL_SSH2} = true ]; then \
-    apt-get update -y && \
-    pecl install ssh2 && \
-    docker-php-ext-enable ssh2 \
-;fi
-
+####################################
+# Pcntl:
+#####################################
 USER root
 ARG INSTALL_PCNTL=false
 ENV INSTALL_PCNTL ${INSTALL_PCNTL}
@@ -372,6 +311,9 @@ RUN if [ ${INSTALL_PCNTL} = true ]; then \
     docker-php-ext-enable pcntl \
 ;fi
 
+####################################
+# Shmop:
+#####################################
 USER root
 ARG INSTALL_SHMOP=false
 ENV INSTALL_SHMOP ${INSTALL_SHMOP}
@@ -381,6 +323,9 @@ RUN if [ ${INSTALL_SHMOP} = true ]; then \
     docker-php-ext-enable shmop \
 ;fi
 
+####################################
+# Sockets:
+#####################################
 USER root
 ARG INSTALL_SOCKETS=false
 ENV INSTALL_SOCKETS ${INSTALL_SOCKETS}
@@ -390,6 +335,9 @@ RUN if [ ${INSTALL_SOCKETS} = true ]; then \
     docker-php-ext-enable sockets \
 ;fi
 
+####################################
+# Sysvmsg:
+#####################################
 USER root
 ARG INSTALL_SYSVMSG=false
 ENV INSTALL_SYSVMSG ${INSTALL_SYSVMSG}
@@ -399,6 +347,9 @@ RUN if [ ${INSTALL_SYSVMSG} = true ]; then \
     docker-php-ext-enable sysvmsg \
 ;fi
 
+####################################
+# Sysvshm:
+#####################################
 USER root
 ARG INSTALL_SYSVSHM=false
 ENV INSTALL_SYSVSHM ${INSTALL_SYSVSHM}

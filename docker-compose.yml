@@ -19,7 +19,6 @@ services:
           - INSTALL_SOAP=${WORKSPACE_INSTALL_SOAP}
           - INSTALL_LDAP=${WORKSPACE_INSTALL_LDAP}
           - INSTALL_IMAP=${WORKSPACE_INSTALL_IMAP}
-          - INSTALL_MONGO=${WORKSPACE_INSTALL_MONGO}
           - INSTALL_PHPREDIS=${WORKSPACE_INSTALL_PHPREDIS}
           - INSTALL_NODE=${WORKSPACE_INSTALL_NODE}
           - INSTALL_YARN=${WORKSPACE_INSTALL_YARN}
@@ -112,21 +111,6 @@ services:
       networks:
         - backend
 
-### PHP Worker Container #####################################
-
-    php-worker:
-      build:
-        context: ./php-worker
-        dockerfile: "Dockerfile-${PHP_VERSION}"
-      volumes_from:
-        - applications
-      depends_on:
-        - workspace
-      extra_hosts:
-        - "dockerhost:${DOCKER_HOST_IP}"
-      networks:
-        - backend
-
 ### NGINX Server Container ##################################
 
     nginx:
@@ -167,17 +151,6 @@ services:
         - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
       ports:
         - "${MYSQL_PORT}:3306"
-      networks:
-        - backend
-
-### MongoDB Container #######################################
-
-    mongo:
-      build: ./mongo
-      ports:
-        - "${MONGODB_PORT}:27017"
-      volumes:
-        - ${DATA_SAVE_PATH}/mongo:/data/db
       networks:
         - backend
 
@@ -222,31 +195,6 @@ services:
       networks:
         - backend
 
-### ElasticSearch Container #################################
-
-    elasticsearch:
-      build: ./elasticsearch
-      volumes:
-        - elasticsearch-data:/usr/share/elasticsearch/data
-        - elasticsearch-plugins:/usr/share/elasticsearch/plugins
-      environment:
-        - cluster.name=laradock-cluster
-        - bootstrap.memory_lock=true
-        - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
-      ulimits:
-        memlock:
-          soft: -1
-          hard: -1
-      mem_limit: 512m
-      ports:
-        - "${ELASTICSEARCH_HOST_HTTP_PORT}:9200"
-        - "${ELASTICSEARCH_HOST_TRANSPORT_PORT}:9300"
-      depends_on:
-        - php-fpm
-      networks:
-        - frontend
-        - backend
-
 ### Networks Setup ############################################
 
 networks:
@@ -263,10 +211,4 @@ volumes:
   memcached:
     driver: "local"
   redis:
-    driver: "local"
-  mongo:
-    driver: "local"
-  elasticsearch-data:
-    driver: "local"
-  elasticsearch-plugins:
     driver: "local"

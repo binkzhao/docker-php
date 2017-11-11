@@ -355,15 +355,6 @@ RUN if [ ${INSTALL_CALENDAR} = true ]; then \
 ;fi
 
 USER root
-ARG INSTALL_MHASH=false
-ENV INSTALL_MHASH ${INSTALL_MHASH}
-RUN if [ ${INSTALL_MHASH} = true ]; then \
-    apt-get update -y && \
-    pecl install mhash && \
-    docker-php-ext-enable mhash \
-;fi
-
-USER root
 ARG INSTALL_SSH2=false
 ENV INSTALL_SSH2 ${INSTALL_SSH2}
 RUN if [ ${INSTALL_SSH2} = true ]; then \
@@ -372,7 +363,6 @@ RUN if [ ${INSTALL_SSH2} = true ]; then \
     docker-php-ext-enable ssh2 \
 ;fi
 
-
 USER root
 ARG INSTALL_PCNTL=false
 ENV INSTALL_PCNTL ${INSTALL_PCNTL}
@@ -380,15 +370,6 @@ RUN if [ ${INSTALL_PCNTL} = true ]; then \
     apt-get update -y && \
     docker-php-ext-install pcntl && \
     docker-php-ext-enable pcntl \
-;fi
-
-USER root
-ARG INSTALL_SHMOP=false
-ENV INSTALL_SHMOP ${INSTALL_SHMOP}
-RUN if [ ${INSTALL_SHMOP} = true ]; then \
-    apt-get update -y && \
-    docker-php-ext-install shmop && \
-    docker-php-ext-enable shmop \
 ;fi
 
 USER root
@@ -410,15 +391,6 @@ RUN if [ ${INSTALL_SOCKETS} = true ]; then \
 ;fi
 
 USER root
-ARG INSTALL_MSGPACK=false
-ENV INSTALL_MSGPACK ${INSTALL_MSGPACK}
-RUN if [ ${INSTALL_MSGPACK} = true ]; then \
-    apt-get update -y && \
-    docker-php-ext-install msgpack && \
-    docker-php-ext-enable msgpack \
-;fi
-
-USER root
 ARG INSTALL_SYSVMSG=false
 ENV INSTALL_SYSVMSG ${INSTALL_SYSVMSG}
 RUN if [ ${INSTALL_SYSVMSG} = true ]; then \
@@ -428,39 +400,12 @@ RUN if [ ${INSTALL_SYSVMSG} = true ]; then \
 ;fi
 
 USER root
-ARG INSTALL_SYSVMEM=false
-ENV INSTALL_SYSVMEM ${INSTALL_SYSVMEM}
-RUN if [ ${INSTALL_SYSVMEM} = true ]; then \
-    apt-get update -y && \
-    docker-php-ext-install sysvmem && \
-    docker-php-ext-enable sysvmem \
-;fi
-
-USER root
 ARG INSTALL_SYSVSHM=false
 ENV INSTALL_SYSVSHM ${INSTALL_SYSVSHM}
 RUN if [ ${INSTALL_SYSVSHM} = true ]; then \
     apt-get update -y && \
     docker-php-ext-install sysvshm && \
     docker-php-ext-enable sysvshm \
-;fi
-
-USER root
-ARG INSTALL_WDDX=false
-ENV INSTALL_WDDX ${INSTALL_WDDX}
-RUN if [ ${INSTALL_WDDX} = true ]; then \
-    apt-get update -y && \
-    docker-php-ext-install wddx \
-    docker-php-ext-enable wddx \
-;fi
-
-USER root
-ARG INSTALL_XSL=false
-ENV INSTALL_XSL ${INSTALL_XSL}
-RUN if [ ${INSTALL_XSL} = true ]; then \
-    apt-get update -y && \
-    docker-php-ext-install xsl && \
-    docker-php-ext-enable xsl \
 ;fi
 
 ###补充的PHP扩展###

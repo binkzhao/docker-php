@@ -368,6 +368,17 @@ RUN if [ ${INSTALL_SYSVSHM} = true ]; then \
     docker-php-ext-enable sysvshm \
 ;fi
 
+
+USER root
+ARG INSTALL_SSH2=false
+ENV INSTALL_SSH2 ${INSTALL_SSH2}
+RUN if [ ${INSTALL_SSH2} = true ]; then \
+    apt-get update -y && \
+    apt-get install libssh2-1 && \
+    pecl install ssh2 && \
+    docker-php-ext-enable ssh2 \
+;fi
+
 ###补充的PHP扩展###
 
 #

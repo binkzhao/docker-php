@@ -249,6 +249,20 @@ services:
       networks:
         - backend
 
+### MongoDB Container #######################################
+
+    mongo:
+      build: ./mongo
+      ports:
+        - "${MONGODB_PORT}:27017"
+      volumes:
+        - ${DATA_SAVE_PATH}/mongo:/data/db
+        - ./mongo/mongo.conf:/usr/local/etc/mongo/mongo.conf
+      extra_hosts:
+        - "dockerhost:${DOCKER_HOST_IP}"
+      networks:
+        - backend
+
 ### Networks Setup ############################################
 
 networks:
@@ -265,4 +279,6 @@ volumes:
   memcached:
     driver: "local"
   redis:
+    driver: "local"
+  mongo:
     driver: "local"

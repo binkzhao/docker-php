@@ -135,17 +135,16 @@ services:
 
               - INSTALL_GETTEXT=true
               - INSTALL_CALENDAR=true
-#              - INSTALL_MHASH=false
               - INSTALL_PCNTL=true
               - INSTALL_SHMOP=true
               - INSTALL_SOCKETS=false
-    #          - INSTALL_SSH2=false
-#              - INSTALL_MSGPACK=false
               - INSTALL_SYSVMSG=false
-    #          - INSTALL_SYSVMEM=false
               - INSTALL_SYSVSHM=true
-#              - INSTALL_WDDX=false
-#              - INSTALL_XSL=false
+#             - INSTALL_SYSVMEM=false
+#             - INSTALL_WDDX=false
+#             - INSTALL_XSL=false
+#             - INSTALL_SSH2=false
+#             - INSTALL_MSGPACK=false
             dockerfile: "Dockerfile-56"
           volumes_from:
             - applications

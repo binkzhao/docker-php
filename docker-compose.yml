@@ -81,19 +81,15 @@ services:
           - INSTALL_IMAGE_OPTIMIZERS=${PHP_FPM_INSTALL_IMAGE_OPTIMIZERS}
           - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
 
-          - INSTALL_GETTEXT=true
-          - INSTALL_CALENDAR=true
-          - INSTALL_MHASH=false
-          - INSTALL_PCNTL=true
-          - INSTALL_SHMOP=true
-          - INSTALL_SOCKETS=false
-#          - INSTALL_SSH2=false
-          - INSTALL_MSGPACK=false
-          - INSTALL_SYSVMSG=false
-#          - INSTALL_SYSVMEM=false
-          - INSTALL_SYSVSHM=true
-          - INSTALL_WDDX=false
-          - INSTALL_XSL=false
+          - INSTALL_GETTEXT=${PHP_FPM_INSTALL_GETTEXT}
+          - INSTALL_CALENDAR=${PHP_FPM_INSTALL_CALENDAR}
+          - INSTALL_MHASH=${PHP_FPM_INSTALL_MHASH}
+          - INSTALL_PCNTL=${PHP_FPM_INSTALL_PCNTL}
+          - INSTALL_SHMOP=${PHP_FPM_INSTALL_SHMOP}
+          - INSTALL_SOCKETS=${PHP_FPM_INSTALL_SOCKETS}
+          - INSTALL_SYSVMSG=${PHP_FPM_INSTALL_SYSVMSG}
+          - INSTALL_SYSVMEM=${PHP_FPM_INSTALL_SYSVMEM}
+          - INSTALL_SYSVSHM=${PHP_FPM_INSTALL_SYSVSHM}
         dockerfile: "Dockerfile-${PHP_VERSION}"
       volumes_from:
         - applications
@@ -133,18 +129,15 @@ services:
               - INSTALL_IMAGE_OPTIMIZERS=${PHP_FPM_INSTALL_IMAGE_OPTIMIZERS}
               - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
 
-              - INSTALL_GETTEXT=true
-              - INSTALL_CALENDAR=true
-              - INSTALL_PCNTL=true
-              - INSTALL_SHMOP=true
-              - INSTALL_SOCKETS=false
-              - INSTALL_SYSVMSG=false
-              - INSTALL_SYSVSHM=true
-#             - INSTALL_SYSVMEM=false
-#             - INSTALL_WDDX=false
-#             - INSTALL_XSL=false
-#             - INSTALL_SSH2=false
-#             - INSTALL_MSGPACK=false
+              - INSTALL_GETTEXT=${PHP_FPM_INSTALL_GETTEXT}
+              - INSTALL_CALENDAR=${PHP_FPM_INSTALL_CALENDAR}
+              - INSTALL_MHASH=${PHP_FPM_INSTALL_MHASH}
+              - INSTALL_PCNTL=${PHP_FPM_INSTALL_PCNTL}
+              - INSTALL_SHMOP=${PHP_FPM_INSTALL_SHMOP}
+              - INSTALL_SOCKETS=${PHP_FPM_INSTALL_SOCKETS}
+              - INSTALL_SYSVMSG=${PHP_FPM_INSTALL_SYSVMSG}
+              - INSTALL_SYSVMEM=${PHP_FPM_INSTALL_SYSVMEM}
+              - INSTALL_SYSVSHM=${PHP_FPM_INSTALL_SYSVSHM}
             dockerfile: "Dockerfile-56"
           volumes_from:
             - applications

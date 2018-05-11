@@ -16,9 +16,6 @@ RUN apk update \
 RUN echo "upstream php-upstream { server ${PHP_UPSTREAM_CONTAINER}:${PHP_UPSTREAM_PORT}; }" > /etc/nginx/conf.d/upstream.conf \
     && rm /etc/nginx/conf.d/default.conf
 
-ARG PHP_UPSTREAM_CONTAINER56=php-fpm56
-ARG PHP_UPSTREAM_PORT56=9000
-RUN echo "upstream php-upstream56 { server ${PHP_UPSTREAM_CONTAINER56}:${PHP_UPSTREAM_PORT56}; }" > /etc/nginx/conf.d/upstream56.conf
 
 CMD ["nginx"]
 

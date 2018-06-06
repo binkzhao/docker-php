@@ -359,6 +359,15 @@ RUN if [ ${INSTALL_SYSVSHM} = true ]; then \
     docker-php-ext-enable sysvshm \
 ;fi
 
+
+USER root
+ARG INSTALL_SYSVSEM=false
+ENV INSTALL_SYSVSHM ${INSTALL_SYSVSEM}
+RUN if [ ${INSTALL_SYSVSEM} = true ]; then \
+    apt-get update -y && \
+    docker-php-ext-install sysvsem && \
+    docker-php-ext-enable sysvsem \
+;fi
 ###补充的PHP扩展###
 
 #--------------------------------------------------------------------------

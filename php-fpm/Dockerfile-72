@@ -1,0 +1,11 @@
+FROM blzhaobink/php-fpm-with-composer:7.2
+
+MAINTAINER Bink Zhao <781270119@qq.com>
+
+RUN usermod -u 1000 www-data
+
+WORKDIR /var/www
+
+CMD ["php-fpm"]
+
+EXPOSE 9000

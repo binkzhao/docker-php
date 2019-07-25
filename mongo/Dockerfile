@@ -1,6 +1,6 @@
 FROM mongo:latest
 
-MAINTAINER Mahmoud Zalt <mahmoud@zalt.me>
+MAINTAINER Bink Zhao <781270119@qq.com>
 
 #COPY mongo.conf /usr/local/etc/mongo/mongo.conf
 

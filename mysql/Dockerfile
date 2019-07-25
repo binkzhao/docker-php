@@ -2,7 +2,7 @@ FROM mysql:5.6
 
 ARG MYSQL_VERSION=5.6
 
-MAINTAINER Mahmoud Zalt <mahmoud@zalt.me>
+MAINTAINER Bink Zhao <781270119@qq.com>
 
 #####################################
 # Set Timezone

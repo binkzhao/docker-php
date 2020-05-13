@@ -15,7 +15,6 @@ services:
     build:
       context: ./php-fpm
       args:
-        - INSTALL_XDEBUG=${PHP_FPM_INSTALL_XDEBUG}
         - INSTALL_PHPREDIS=${PHP_FPM_INSTALL_PHPREDIS}
         - INSTALL_AEROSPIKE=${PHP_FPM_INSTALL_AEROSPIKE}
         - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
@@ -33,14 +32,14 @@ services:
     networks:
       - backend
 
-  php-fpm72:
+  php-fpm74:
     build:
       context: ./php-fpm
-      dockerfile: "Dockerfile-72"
+      dockerfile: "Dockerfile-74"
     volumes_from:
       - applications
     volumes:
-      - ./php-fpm/php72.ini:/usr/local/etc/php/php.ini
+      - ./php-fpm/php74.ini:/usr/local/etc/php/php.ini
     expose:
       - "9000"
     extra_hosts:

@@ -95,6 +95,7 @@ services:
   mysql57:
     build:
       context: ./mysql
+      dockerfile: "Dockerfile-57"
       args:
         - MYSQL_VERSION=5.7
     environment:
@@ -134,32 +135,32 @@ services:
 
   ### RabbitMQ Container ######################################
 
-  rabbitmq:
-    build: ./rabbitmq
-    ports:
-      - "${RABBITMQ_NODE_HOST_PORT}:5672"
-      - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
-      - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
-    privileged: true
-    environment:
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
-    networks:
-      - backend
+#  rabbitmq:
+#    build: ./rabbitmq
+#    ports:
+#      - "${RABBITMQ_NODE_HOST_PORT}:5672"
+#      - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
+#      - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
+#    privileged: true
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+#      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+#    networks:
+#      - backend
 
   ### MongoDB Container #######################################
 
-  mongo:
-    build: ./mongo
-    ports:
-      - "${MONGODB_PORT}:27017"
-    volumes:
-      - ${DATA_SAVE_PATH}/mongo:/data/db
-      - ./mongo/mongo.conf:/usr/local/etc/mongo/mongo.conf
-    extra_hosts:
-      - "dockerhost:${DOCKER_HOST_IP}"
-    networks:
-      - backend
+#  mongo:
+#    build: ./mongo
+#    ports:
+#      - "${MONGODB_PORT}:27017"
+#    volumes:
+#      - ${DATA_SAVE_PATH}/mongo:/data/db
+#      - ./mongo/mongo.conf:/usr/local/etc/mongo/mongo.conf
+#    extra_hosts:
+#      - "dockerhost:${DOCKER_HOST_IP}"
+#    networks:
+#      - backend
 
 ### Networks Setup ############################################
 

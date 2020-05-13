@@ -15,7 +15,6 @@ services:
     build:
       context: ./php-fpm
       args:
-        - INSTALL_XDEBUG=${PHP_FPM_INSTALL_XDEBUG}
         - INSTALL_PHPREDIS=${PHP_FPM_INSTALL_PHPREDIS}
         - INSTALL_AEROSPIKE=${PHP_FPM_INSTALL_AEROSPIKE}
         - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
@@ -33,14 +32,14 @@ services:
     networks:
       - backend
 
-  php-fpm72:
+  php-fpm74:
     build:
       context: ./php-fpm
-      dockerfile: "Dockerfile-72"
+      dockerfile: "Dockerfile-74"
     volumes_from:
       - applications
     volumes:
-      - ./php-fpm/php72.ini:/usr/local/etc/php/php.ini
+      - ./php-fpm/php74.ini:/usr/local/etc/php/php.ini
     expose:
       - "9000"
     extra_hosts:
@@ -92,6 +91,25 @@ services:
     networks:
       - backend
 
+  mysql57:
+    build:
+      context: ./mysql
+      dockerfile: "Dockerfile-57"
+      args:
+        - MYSQL_VERSION=5.7
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ${DATA_SAVE_PATH}/mysql57:/var/lib/mysql
+      - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+    ports:
+      - "3307:3306"
+    networks:
+      - backend
+
   ### Redis Container #########################################
 
   redis:
@@ -116,32 +134,32 @@ services:
 
   ### RabbitMQ Container ######################################
 
-  rabbitmq:
-    build: ./rabbitmq
-    ports:
-      - "${RABBITMQ_NODE_HOST_PORT}:5672"
-      - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
-      - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
-    privileged: true
-    environment:
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
-    networks:
-      - backend
+#  rabbitmq:
+#    build: ./rabbitmq
+#    ports:
+#      - "${RABBITMQ_NODE_HOST_PORT}:5672"
+#      - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
+#      - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
+#    privileged: true
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+#      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+#    networks:
+#      - backend
 
   ### MongoDB Container #######################################
 
-  mongo:
-    build: ./mongo
-    ports:
-      - "${MONGODB_PORT}:27017"
-    volumes:
-      - ${DATA_SAVE_PATH}/mongo:/data/db
-      - ./mongo/mongo.conf:/usr/local/etc/mongo/mongo.conf
-    extra_hosts:
-      - "dockerhost:${DOCKER_HOST_IP}"
-    networks:
-      - backend
+#  mongo:
+#    build: ./mongo
+#    ports:
+#      - "${MONGODB_PORT}:27017"
+#    volumes:
+#      - ${DATA_SAVE_PATH}/mongo:/data/db
+#      - ./mongo/mongo.conf:/usr/local/etc/mongo/mongo.conf
+#    extra_hosts:
+#      - "dockerhost:${DOCKER_HOST_IP}"
+#    networks:
+#      - backend
 
 ### Networks Setup ############################################
 

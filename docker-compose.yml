@@ -32,6 +32,25 @@ services:
     networks:
       - backend
 
+#  php-fpm72:
+#    build:
+#      context: ./php-fpm
+#      dockerfile: "Dockerfile-72"
+#    volumes_from:
+#      - applications
+#    volumes:
+#      - ./php-fpm/php72.ini:/usr/local/etc/php/php.ini
+#    expose:
+#      - "9000"
+#    extra_hosts:
+#      - "dockerhost:${DOCKER_HOST_IP}"
+#      - "biapi.bink.com:172.20.0.1"
+#      - "capitalapi.bink.com:172.20.0.1"
+#    environment:
+#      - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
+#    networks:
+#      - backend
+
   php-fpm74:
     build:
       context: ./php-fpm
@@ -44,6 +63,8 @@ services:
       - "9000"
     extra_hosts:
       - "dockerhost:${DOCKER_HOST_IP}"
+      - "biapi.bink.com:172.20.0.1"
+      - "capitalapi.bink.com:172.20.0.1"
     environment:
       - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
     networks:
@@ -134,18 +155,18 @@ services:
 
   ### RabbitMQ Container ######################################
 
-#  rabbitmq:
-#    build: ./rabbitmq
-#    ports:
-#      - "${RABBITMQ_NODE_HOST_PORT}:5672"
-#      - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
-#      - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
-#    privileged: true
-#    environment:
-#      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-#      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
-#    networks:
-#      - backend
+  #  rabbitmq:
+  #    build: ./rabbitmq
+  #    ports:
+  #      - "${RABBITMQ_NODE_HOST_PORT}:5672"
+  #      - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
+  #      - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
+  #    privileged: true
+  #    environment:
+  #      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+  #      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+  #    networks:
+  #      - backend
 
   ### MongoDB Container #######################################
 

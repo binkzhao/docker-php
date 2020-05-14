@@ -1,4 +1,4 @@
-FROM blzhaobink/php-fpm-with-composer:7.1
+FROM blzhaobink/php-fpm:7.1
 
 MAINTAINER Bink Zhao <781270119@qq.com>
 
@@ -100,7 +100,6 @@ ENV COMPOSER_HOME /root/composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ENV PATH $COMPOSER_HOME/vendor/bin:$PATH
 RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
-
 
 #--------------------------------------------------------------------------
 # Final Touch

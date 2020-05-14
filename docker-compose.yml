@@ -27,25 +27,6 @@ services:
       - "9000"
     extra_hosts:
       - "dockerhost:${DOCKER_HOST_IP}"
-    environment:
-      - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
-    networks:
-      - backend
-
-  php-fpm74:
-    build:
-      context: ./php-fpm
-      dockerfile: "Dockerfile-74"
-    volumes_from:
-      - applications
-    volumes:
-      - ./php-fpm/php74.ini:/usr/local/etc/php/php.ini
-    expose:
-      - "9000"
-    extra_hosts:
-      - "dockerhost:${DOCKER_HOST_IP}"
-    environment:
-      - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
     networks:
       - backend
 
@@ -76,8 +57,7 @@ services:
   mysql:
     build:
       context: ./mysql
-      args:
-        - MYSQL_VERSION=${MYSQL_VERSION}
+      dockerfile: "Dockerfile-${MYSQL_VERSION}"
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
@@ -88,25 +68,6 @@ services:
       - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
     ports:
       - "${MYSQL_PORT}:3306"
-    networks:
-      - backend
-
-  mysql57:
-    build:
-      context: ./mysql
-      dockerfile: "Dockerfile-57"
-      args:
-        - MYSQL_VERSION=5.7
-    environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    volumes:
-      - ${DATA_SAVE_PATH}/mysql57:/var/lib/mysql
-      - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
-    ports:
-      - "3307:3306"
     networks:
       - backend
 
@@ -134,18 +95,18 @@ services:
 
   ### RabbitMQ Container ######################################
 
-#  rabbitmq:
-#    build: ./rabbitmq
-#    ports:
-#      - "${RABBITMQ_NODE_HOST_PORT}:5672"
-#      - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
-#      - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
-#    privileged: true
-#    environment:
-#      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-#      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
-#    networks:
-#      - backend
+  #  rabbitmq:
+  #    build: ./rabbitmq
+  #    ports:
+  #      - "${RABBITMQ_NODE_HOST_PORT}:5672"
+  #      - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
+  #      - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
+  #    privileged: true
+  #    environment:
+  #      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+  #      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+  #    networks:
+  #      - backend
 
   ### MongoDB Container #######################################
 

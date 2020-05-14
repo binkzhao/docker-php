@@ -1,4 +1,4 @@
-FROM blzhaobink/php-fpm-with-composer:7.2
+FROM blzhaobink/php-fpm:7.2
 
 MAINTAINER Bink Zhao <781270119@qq.com>
 

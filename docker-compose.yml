@@ -15,6 +15,7 @@ services:
     build:
       context: ./php-fpm
       args:
+        - INSTALL_XDEBUG=${PHP_FPM_INSTALL_XDEBUG}
         - INSTALL_PHPREDIS=${PHP_FPM_INSTALL_PHPREDIS}
         - INSTALL_AEROSPIKE=${PHP_FPM_INSTALL_AEROSPIKE}
         - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
@@ -22,7 +23,7 @@ services:
     volumes_from:
       - applications
     volumes:
-      - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
+      - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php80.ini
     expose:
       - "9000"
     extra_hosts:
@@ -84,14 +85,14 @@ services:
 
   ### Memcached Container #####################################
 
-  memcached:
-    build: ./memcached
-    volumes:
-      - ${DATA_SAVE_PATH}/memcached:/var/lib/memcached
-    ports:
-      - "${MEMCACHED_HOST_PORT}:11211"
-    networks:
-      - backend
+#  memcached:
+#    build: ./memcached
+#    volumes:
+#      - ${DATA_SAVE_PATH}/memcached:/var/lib/memcached
+#    ports:
+#      - "${MEMCACHED_HOST_PORT}:11211"
+#    networks:
+#      - backend
 
   ### RabbitMQ Container ######################################
 

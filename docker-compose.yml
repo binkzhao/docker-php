@@ -14,22 +14,40 @@ services:
   php-fpm:
     build:
       context: ./php-fpm
-      args:
-        - INSTALL_XDEBUG=${PHP_FPM_INSTALL_XDEBUG}
-        - INSTALL_PHPREDIS=${PHP_FPM_INSTALL_PHPREDIS}
-        - INSTALL_AEROSPIKE=${PHP_FPM_INSTALL_AEROSPIKE}
-        - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
+      #      args:
+      #        - INSTALL_XDEBUG=${PHP_FPM_INSTALL_XDEBUG}
+      #        - INSTALL_PHPREDIS=${PHP_FPM_INSTALL_PHPREDIS}
+      #        - INSTALL_AEROSPIKE=${PHP_FPM_INSTALL_AEROSPIKE}
+      #        - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
       dockerfile: "Dockerfile-${PHP_VERSION}"
     volumes_from:
       - applications
-    volumes:
-      - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php80.ini
+#    volumes:
+#      - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
     expose:
       - "9000"
     extra_hosts:
       - "dockerhost:${DOCKER_HOST_IP}"
     networks:
       - backend
+
+  # Node Js
+#  admin-czd:
+#    build:
+#      context: ./nodejs
+#    volumes_from:
+#      - applications
+#    restart: always
+#    ports:
+#      - "8080:8080"
+#      - "9528:9528"
+#    extra_hosts:
+#      - "admin.czd.com:172.18.0.1"
+#    expose:
+#      - 8080
+#      - 9528
+#    networks:
+#      - backend
 
   ### NGINX Server Container ##################################
 
@@ -49,8 +67,8 @@ services:
       - "${NGINX_HOST_HTTPS_PORT}:443"
     depends_on:
       - php-fpm
+#      - admin-czd
     networks:
-      - frontend
       - backend
 
   ### MySQL Container #########################################
@@ -85,14 +103,14 @@ services:
 
   ### Memcached Container #####################################
 
-#  memcached:
-#    build: ./memcached
-#    volumes:
-#      - ${DATA_SAVE_PATH}/memcached:/var/lib/memcached
-#    ports:
-#      - "${MEMCACHED_HOST_PORT}:11211"
-#    networks:
-#      - backend
+  #  memcached:
+  #    build: ./memcached
+  #    volumes:
+  #      - ${DATA_SAVE_PATH}/memcached:/var/lib/memcached
+  #    ports:
+  #      - "${MEMCACHED_HOST_PORT}:11211"
+  #    networks:
+  #      - backend
 
   ### RabbitMQ Container ######################################
 
@@ -126,8 +144,8 @@ services:
 ### Networks Setup ############################################
 
 networks:
-  frontend:
-    driver: "bridge"
+  #  frontend:
+  #    driver: "bridge"
   backend:
     driver: "bridge"
 

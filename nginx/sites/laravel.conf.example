@@ -1,10 +1,46 @@
 server {
+    charset utf-8;
+    client_max_body_size 128M;
+
+    listen 80;
+    server_name   admin.czd.com;
+
+    root        /var/www/admin-vue/;
+    index       index.html;
+
+    access_log  /var/log/nginx/admin-czd-access.log;
+    error_log   /var/log/nginx/admin-czd-error.log debug;
+
+    #location / {
+    #    proxy_pass http://admin-czd:8080;
+    #}
+
+    location ^~ /backend {
+        alias /var/www/admin-php/public/;
+        if (!-e $request_filename) {
+                rewrite ^ /backend/index.php last;
+        }
+        index index.php;
+        location ~ \.php$ {
+            include fastcgi_params;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $request_filename;
+            fastcgi_pass php-upstream;
+        }
+    }
+
+    location ~* /\. {
+        deny all;
+    }
+}
+
+server {
 
     listen 80;
     listen [::]:80;
 
-    server_name laravel.dev;
-    root /var/www/laravel/public;
+    server_name czd-api.dev.com;
+    root /var/www/admin-php/public/;
     index index.php index.html index.htm;
 
     location / {
@@ -30,6 +66,6 @@ server {
         log_not_found off;
     }
 
-    error_log /var/log/nginx/laravel_error.log;
-    access_log /var/log/nginx/laravel_access.log;
+    error_log /var/log/nginx/czd-api_error.log;
+    access_log /var/log/nginx/czd-api_access.log;
 }
